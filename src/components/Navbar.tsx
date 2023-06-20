@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { FC } from 'react'
 import { Icons } from './Icons'
 import { buttonVariants } from './ui/Button'
 import { getAuthSession } from '@/lib/auth'
@@ -15,7 +14,8 @@ const Navbar = async () => {
             <p className="hidden text-zinc-700 text-sm font-medium md:block">leadit</p>
          </Link>
          {/* search bar */}
-         {session?.user ? <UserAccountNav user={session.user} />
+         {session?.user ?
+          <UserAccountNav user={session.user} />
          : 
          <Link href={'/sign-in'} className={buttonVariants()}>Sign in</Link>
          }
