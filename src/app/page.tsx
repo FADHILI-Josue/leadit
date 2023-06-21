@@ -1,6 +1,8 @@
 "use client"
 import { HomeIcon } from 'lucide-react'
 import { useFetch } from '../hooks/usefetch'
+import Link from 'next/link'
+import { buttonVariants } from '@/components/ui/Button'
 
 const url = `http://jsonplaceholder.typicode.com/posts`
 interface Post {
@@ -29,6 +31,7 @@ export default function Home() {
           <div className='flex justify-between gap-x-4 py-3'>
             <p className='text-zinc-500'>Your personal leadit</p>
           </div>
+          <Link href={'/r/create'} className={buttonVariants({className: 'w-full mt-14 mb-6'})}>Create Community</Link>
         </div>
       </div>
     </div>
