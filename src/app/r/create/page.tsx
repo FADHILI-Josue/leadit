@@ -1,12 +1,26 @@
 'use client'
 import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/input';
-import { useRouter } from 'next/router';
+import { Input } from '@/components/ui/Input';
+import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react'
+import {useMutation} from '@tanstack/react-query'
+import axios from 'axios'
+import { createSubredditPayload } from '@/lib/validators/subreddit';
 
 const Page: FC = () => {
     const [input, setinput] = useState<string>('');
     const router = useRouter()
+
+    const {mutate:createCommunity, isLoading} = useMutation({
+        mutationFn:async ()=>{
+            const payload : createSubredditPayload = {
+                name: input,
+            }
+            const {data} = await axios.post('/api/subreddit')
+            return data as string
+        }
+    })
+
     return <div className='container flex items-center h-full max-w-3xl mx-auto'>
         <div className='relative bg-white w-full h-fit p-4 rounded-lg space-y-6'>
             <div className='flex justify-between items-center'>
@@ -34,7 +48,7 @@ const Page: FC = () => {
                     variant='subtle'>
                     Cancel
                 </Button>
-                <Button>
+                <Button disabled={input.length === 0} isLoading={isLoading} onClick={()=>createCommunity()}>
                     Create Community
                 </Button>
             </div>
